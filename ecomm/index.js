@@ -8,6 +8,7 @@ const cookieSession = require('cookie-session');
 const authRouter = require('./routes/admin/auth');
 
 const app = express();
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({
     keys: ['lkasldkfjp3jp2ij5p2i35j']
