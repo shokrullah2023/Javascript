@@ -50,7 +50,7 @@ router.post(
     // Store the id of that user inside the users cookies
     req.session.userId = user.id;
 
-    res.send("Account Created!!!");
+    res.redirect('/admin/products');
   }
 );
 
@@ -77,7 +77,7 @@ router.post("/signin",[requiredEmailExists, requirePasswordForUser], async (req,
 
   req.session.userId = user.id;
 
-  res.send("You are signed in!!!");
+  res.redirect('/admin/products');
 });
 
 
