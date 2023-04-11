@@ -6,7 +6,8 @@ const usersRepo = require('./repositories/users');
 const cookieSession = require('cookie-session');
 
 const authRouter = require('./routes/admin/auth');
-const user = require('./routes/admin/products');
+const adminProdcut = require('./routes/admin/products');
+const userProduct = require('./routes/products');
 
 const app = express();
 app.use(express.static('public'));
@@ -15,7 +16,8 @@ app.use(cookieSession({
     keys: ['lkasldkfjp3jp2ij5p2i35j']
 }));
 app.use(authRouter);
-app.use(user);
+app.use(adminProdcut);
+app.use(userProduct);
 
 app.listen(3000, ()=>{
     console.log('Listening');
