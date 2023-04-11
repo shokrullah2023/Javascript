@@ -3,6 +3,7 @@ const { check, validationResult } = require("express-validator");
 const express = require("express");
 const signupTemplate = require("../../views/admin/auth/signup");
 const signinTemplate = require("../../views/admin/auth/signin");
+const {handleErrors} = require('../../routes/admin/middlewares');
 const {requireEmail, requirePassword, requirePasswordConfirmation, requiredEmailExists, requirePasswordForUser} = require('./validators');
 
 
@@ -34,13 +35,13 @@ router.get("/signup", (req, res) => {
 router.post(
   "/signup",
   [
-    requireEmail, requirePassword, requirePasswordConfirmation],
+    requireEmail, requirePassword, requirePasswordConfirmation], handleErrors(signupTemplate),
   async (req, res) => {
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
     
-    if(!errors.isEmpty()){
-      res.send(signupTemplate({req, errors}));
-    }
+    // if(!errors.isEmpty()){
+    //   res.send(signupTemplate({req, errors}));
+    // }
 
     const { email, password, passwordConfirmation } = req.body;
 
@@ -57,18 +58,19 @@ router.post(
 router.get("/signout", (req, res) => {
   req.session = null;
   res.send("You are logged out!");
+  // res.redirect('/admin/products');
 });
 
 router.get("/signin", (req, res) => {
   res.send(signinTemplate({}));
 });
 
-router.post("/signin",[requiredEmailExists, requirePasswordForUser], async (req, res) => {
-  const errors = validationResult(req);
+router.post("/signin",[requiredEmailExists, requirePasswordForUser],handleErrors(signinTemplate), async (req, res) => {
+  // const errors = validationResult(req);
   
-  if(!errors.isEmpty()){
-    return res.send(signinTemplate({ errors }));
-  }
+  // if(!errors.isEmpty()){
+  //   return res.send(signinTemplate({ errors }));
+  // }
 
 
   const { email} = req.body;
