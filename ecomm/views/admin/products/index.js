@@ -1,23 +1,5 @@
 const layout = require('../layout');
 
-<<<<<<< HEAD
-
-module.exports = ({ products }) => {
-    const renderedProducts = products
-    .map((product) => {
-        return `
-            <div>${product.title}</div>
-        `;
-    }).join('');
-
-    return layout ({
-        content: `
-            <h1 class="title">Product</h1>
-            ${renderedProducts}
-        `
-    });
-};
-=======
 module.exports = ({ products }) => {
   const renderedProducts = products
     .map(product => {
@@ -64,4 +46,4 @@ module.exports = ({ products }) => {
     `
   });
 };
->>>>>>> 56ae4582519c24ab13e69d2b9ccd5d522ef04bbf
+

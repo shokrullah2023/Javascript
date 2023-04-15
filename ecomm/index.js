@@ -8,6 +8,7 @@ const cookieSession = require('cookie-session');
 const authRouter = require('./routes/admin/auth');
 const adminProdcut = require('./routes/admin/products');
 const userProduct = require('./routes/products');
+const product = require("./routes/carts");
 
 const app = express();
 app.use(express.static('public'));
@@ -18,6 +19,7 @@ app.use(cookieSession({
 app.use(authRouter);
 app.use(adminProdcut);
 app.use(userProduct);
+app.use(product);
 
 app.listen(3000, ()=>{
     console.log('Listening');
