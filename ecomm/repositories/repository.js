@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const crypto = require('crypto');
 
@@ -7,7 +6,6 @@ constructor(filename){
     if(!filename){
         throw new Error('Creating a repository requires a file');
     }
-
     this.filename = filename;
 
     try{
