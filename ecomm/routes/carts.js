@@ -46,6 +46,6 @@ router.get('/cart', async (req, res) => {
     
 })
 
-// Receive a post request to delete an item from a cart
+// Receive a post request to delete an item from a cartRepo
 
 module.exports = router;
