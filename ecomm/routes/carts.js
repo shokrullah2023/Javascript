@@ -47,5 +47,14 @@ router.get('/cart', async (req, res) => {
 })
 
 // Receive a post request to delete an item from a cartRepo
+router.post('/cart/products/delete', async (req, res) => {
+    const { itemId } = req.body;
+    const cart = await cartRepo.getOne(req.session.cartId);
+
+    const items = await cart.items.filter( item => item.id !== itemId);
+    await cartRepo.update(req.session.cartId, { items });
+
+    res.redirect('/cart');
+})
 
 module.exports = router;
