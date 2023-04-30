@@ -1,0 +1,15 @@
+
+body, nav { 
+    color: #FFFFFF;
+    background-image: linear-gradient(to right, #305486, #6480a7 );
+}
+form{
+    overflow: hidden;
+    position: fixed;
+    top: 10px;
+    width:auto;
+    right: 5px;
+  }
+
+/* #305486
+#6480a7 */
