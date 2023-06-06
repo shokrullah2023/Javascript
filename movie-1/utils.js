@@ -1,3 +1,4 @@
+
 const debounce = (func, delay = 300) => {
     let timeoutId;
     return (...args) => {
@@ -8,4 +9,5 @@ const debounce = (func, delay = 300) => {
              func.apply(null, args); 
         }, delay);
     }
+
 }

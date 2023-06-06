@@ -1,12 +1,19 @@
 const repo = require('../../repository/users');
 const express = require('express');
+const {validationResult} = require('express-validator');
 const signinTemplate = require('../../views/admin/auth/signin');
 const signupTemplate = require('../../views/admin/auth/signup');
+const {requireEmail,
+   requirePassword, 
+   requirePasswordConfirmation,
+  requireValidEmail,
+  requireValidPassword
+  } = require('../../views/admin/validators');
 
 const router = express.Router();
 
 router.get("/signin", (req, res) => {
-  res.send(signinTemplate());
+  res.send(signinTemplate(req));
 });
 
 router.get('/signout', (req, res) => {
@@ -14,22 +21,22 @@ router.get('/signout', (req, res) => {
     res.send('You are logged out!');
 }) 
 
-router.post("/signin", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await repo.getOneBy({ email });
-  if (!user) {
-    return res.send("The email not found");
+router.post("/signin",[requireValidEmail, requireValidPassword],async (req, res) => {
+  const errors = validationResult(req);
+  console.log(errors); 
+  if(!errors.isEmpty()){
+    return res.send(signinTemplate({errors}));
   }
-  const validPassword = await repo.comparePassword(user.password, password);
-  if (!validPassword) {
-    return res.send("Invalid password");
-  }
+
+  const { email } = req.body;
+    const user = await repo.getOneBy({ email });
+
   req.session.userId = user.id;
   res.send("Your are signed in!!!");
 });
 
 router.get("/signup", (req, res) => {
-    res.send(signupTemplate());
+    res.send(signupTemplate({req}));
   });
   
   // const bodyParser = (req, res, next) => {
@@ -50,15 +57,15 @@ router.get("/signup", (req, res) => {
   
   // };
   
- router.post("/signup", async (req, res) => {
-    const { email, password, passwordConfirmation } = req.body;
-    const existingUser = await repo.getOneBy({ email });
-    if (existingUser) {
-      return res.send("Email already used!");
+ router.post("/signup",[requireEmail, requirePassword, requirePasswordConfirmation],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    if(!errors.isEmpty()){
+      return res.send(signupTemplate({errors}));
     }
-    if (password !== passwordConfirmation) {
-      return res.send("Password is not matching!");
-    }
+
+    const { email, password } = req.body;
     const user = await repo.create({ email, password });
     req.session.userId = user.id;
     res.send(`Account Created for ${email}`);
