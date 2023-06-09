@@ -1,6 +1,6 @@
 
 const { validationResult } = require('express-validator');
-const layout = require('../../views/admin/layout');
+
 module.exports = {
     handleErrors(templateFunc){
         return (req, res, next) => {
