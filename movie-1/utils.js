@@ -1,12 +1,13 @@
 
-const debounce = (func, delay=1000) => {
+const debounce = (func, delay = 300) => {
     let timeoutId;
     return (...args) => {
         if(timeoutId){
-        clearTimeout(timeoutId);
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(()=> {
+             func.apply(null, args); 
+        }, delay);
     }
-    timeoutId = setTimeout(() => {
-        func.apply(null, args);
-    }, delay);
-}
+
 }
