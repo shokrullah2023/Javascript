@@ -8,7 +8,7 @@ const {requireEmail,
    requirePasswordConfirmation,
   requireValidEmail,
   requireValidPassword
-  } = require('../../views/admin/validators');
+  } = require('./validators');
 
 const router = express.Router();
 

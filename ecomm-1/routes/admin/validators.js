@@ -2,6 +2,14 @@ const {check} = require('express-validator');
 const repo = require('../../repository/users');
 
 module.exports = {
+  requireTitle: check('title')
+    .trim()
+    .isLength({min:3, max:12})
+    .withMessage('Must be correct Title'),
+  requirePrice: check('price')
+    .toFloat()
+    .isFloat({ min:1 })
+    .withMessage('Could be at least 1 character'),
    requireEmail: check('email')
     .trim()
     .normalizeEmail()
@@ -40,8 +48,6 @@ module.exports = {
     requireValidPassword:
     check('password')
     .trim()
-    .isLength({min:6, max:10})
-    .withMessage('Password must be 6-10')
     .custom(async (password, {req}) => {
       const user = await repo.getOneBy({ email: req.body.email });
       if(!user){
