@@ -30,7 +30,10 @@ router.get('/admin/product/:id/edit', async (req, res) => {
     res.send(editTemplate({product}));
 });
 
-router.post('/admin/product/:id/edit', async (req, res) => {
+router.post('/admin/product/:id/edit', [requireTitle, requirePrice], handleErrors(editTemplate, async req =>{
+    const product = await productRepo.getOne(req.params.id);
+    return {product};
+}), async (req, res) => {
     const changes = req.body;
     await productRepo.update(changes, req.params.id);
     res.redirect('/admin/product');
