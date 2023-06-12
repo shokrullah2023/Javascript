@@ -1,7 +1,12 @@
 [
   {
-    "title": "Chadardaman",
-    "price": 1.1,
+    "title": "Chadar",
+    "price": "1.4",
     "id": "86c45e8c"
+  },
+  {
+    "title": "Scarf",
+    "price": "3",
+    "id": "e72b79e0"
   }
 ]
