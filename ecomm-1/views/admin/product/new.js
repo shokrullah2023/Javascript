@@ -1,5 +1,5 @@
-const layout = require('../admin/layout');
-const { getError } = require('../helpers');
+const layout = require('../../admin/layout');
+const { getError } = require('../../helpers');
 
 module.exports = ({ errors }) => {
   return layout({

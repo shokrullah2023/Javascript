@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const authUser = require("./routes/admin/auth");
 const products = require("./routes/admin/product");
+const userProduct = require('./routes/products');
 
 const app = express();
 app.use(express.static('public'));
@@ -14,6 +15,7 @@ app.use(
 );
 app.use(authUser);
 app.use(products);
+app.use(userProduct);
 
 app.listen(3000, () => {
   console.log("Listening");

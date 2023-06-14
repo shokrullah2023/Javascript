@@ -17,8 +17,8 @@ router.get("/signin", (req, res) => {
 });
 
 router.get('/signout', (req, res) => {
-    req.session = null;
-    res.send('You are logged out!');
+    req.session.userId = null;
+    res.redirect('/signin');;
 }) 
 
 router.post("/signin",[requireValidEmail, requireValidPassword],async (req, res) => {
@@ -32,7 +32,7 @@ router.post("/signin",[requireValidEmail, requireValidPassword],async (req, res)
     const user = await repo.getOneBy({ email });
 
   req.session.userId = user.id;
-  res.send("Your are signed in!!!");
+  res.redirect('/admin/product');
 });
 
 router.get("/signup", (req, res) => {
@@ -68,7 +68,7 @@ router.get("/signup", (req, res) => {
     const { email, password } = req.body;
     const user = await repo.create({ email, password });
     req.session.userId = user.id;
-    res.send(`Account Created for ${email}`);
+    res.redirect('/admin/product');
   });
   
   module.exports = router;

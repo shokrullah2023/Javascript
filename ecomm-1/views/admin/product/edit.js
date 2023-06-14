@@ -1,5 +1,5 @@
-const layout = require('../admin/layout');
-const { getError } = require('../helpers');
+const layout = require('../../admin/layout');
+const { getError } = require('../../helpers');
 
 module.exports = ({ product, errors }) => {
   return layout({
@@ -8,7 +8,7 @@ module.exports = ({ product, errors }) => {
         <div class="column is-half">
           <h1 class="subtitle">Edit a Product</h1>
 
-          <form method="POST" enctype="multipart/form-data">
+          <form method="POST" >
             <div class="field">
               <label class="label">Title</label>
               <input value="${

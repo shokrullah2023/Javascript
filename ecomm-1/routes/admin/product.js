@@ -1,20 +1,20 @@
-const productTemplate = require('../../views/product/new');
+const productTemplate = require('../../views/admin/product/new');
 const productRepo = require('../../repository/products');
 const express = require('express');
 const {requireTitle, requirePrice} = require('./validators');
-const {handleErrors} = require('../admin/middleware');
-const productTemplateIndex = require('../../views/product/index');
-const editTemplate = require('../../views/product/edit');
+const {handleErrors, requireAuth} = require('../admin/middleware');
+const productTemplateIndex = require('../../views/admin/product/index');
+const editTemplate = require('../../views/admin/product/edit');
 
 
 const router = express.Router();
 
-router.get('/admin/product', async (req, res)=> {
+router.get('/admin/product',requireAuth, async (req, res)=> {
     const products = await productRepo.getAll();
     res.send(productTemplateIndex({products}));
 });
 
-router.get('/admin/product/new', (req, res) => {
+router.get('/admin/product/new', requireAuth, (req, res) => {
     res.send(productTemplate({}));
 })
 
@@ -22,10 +22,10 @@ router.post('/admin/product/new', [requireTitle, requirePrice],
 handleErrors(productTemplate), async (req, res)=> {
     const {title, price} = req.body;
     await productRepo.create({title, price});
-    res.send("submitted");
+   res.redirect('/admin/product');
 });
 
-router.get('/admin/product/:id/edit', async (req, res) => {
+router.get('/admin/product/:id/edit',requireAuth,  async (req, res) => {
     const product = await productRepo.getOne(req.params.id);
     res.send(editTemplate({product}));
 });
